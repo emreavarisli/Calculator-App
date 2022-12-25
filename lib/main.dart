@@ -8,7 +8,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(primarySwatch: Colors.deepOrange),
+      theme: ThemeData(primarySwatch: Colors.green),
       home: const HomeApp(),
       debugShowCheckedModeBanner: false,
     );
@@ -27,71 +27,141 @@ class _HomeAppState extends State<HomeApp> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Calculator App'),
+        title: const Text(
+          'Calculator App',
+          style: TextStyle(fontSize: 25),
+        ),
       ),
       body: Container(
         child: Column(
           children: [
             Expanded(
-              child: Container(
-                padding: const EdgeInsets.all(10),
-                alignment: Alignment.bottomRight,
-                child: const Text(
-                  '0',
-                  style: TextStyle(
-                    fontSize: 50,
-                    fontWeight: FontWeight.w500,
+              child: Column(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(10),
+                    alignment: Alignment.bottomRight,
+                    child: Text(
+                      text,
+                      style: const TextStyle(
+                        fontSize: 40,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
             ),
             Row(
               children: [
-                customOutlineButton('9'),
-                customOutlineButton('8'),
-                customOutlineButton('7'),
-                customOutlineButton('+'),
+                customTextButton('ebob'),
+                customTextButton('ekok'),
+                customTextButton('mod'),
+                customTextButton('pow'),
               ],
             ),
             Row(
               children: [
-                customOutlineButton('4'),
-                customOutlineButton('5'),
-                customOutlineButton('6'),
-                customOutlineButton('-'),
+                customTextButton('7'),
+                customTextButton('8'),
+                customTextButton('9'),
+                customTextButton('+'),
               ],
             ),
             Row(
               children: [
-                customOutlineButton('1'),
-                customOutlineButton('2'),
-                customOutlineButton('3'),
-                customOutlineButton('x'),
+                customTextButton('4'),
+                customTextButton('5'),
+                customTextButton('6'),
+                customTextButton('-'),
               ],
             ),
             Row(
               children: [
-                customOutlineButton('C'),
-                customOutlineButton('0'),
-                customOutlineButton('='),
-                customOutlineButton('/'),
+                customTextButton('1'),
+                customTextButton('2'),
+                customTextButton('3'),
+                customTextButton('x'),
               ],
-            )
+            ),
+            Row(
+              children: [
+                customTextButton('C'),
+                customTextButton('0'),
+                customTextButton('='),
+                customTextButton('/'),
+              ],
+            ),
           ],
         ),
       ),
     );
   }
 
-  Widget customOutlineButton(String value) {
-    return
-        //padding: const EdgeInsets.all(25),
-        TextButton(
-      onPressed: () {},
-      child: Text(
-        value,
-        style: const TextStyle(fontSize: 30.0),
+  Widget customTextButton(String value) {
+    return SizedBox(
+      width: 100,
+      height: 100,
+      child: TextButton(
+        onPressed: () => buttonClick(value),
+        child: Text(
+          value,
+          style: const TextStyle(fontSize: 30.0),
+        ),
       ),
     );
+  }
+
+  late int first;
+  late int second;
+  late String result;
+  String text = '';
+
+  void buttonClick(String buttonText) {
+    if (buttonText == 'C') {
+      result = '';
+      text = '';
+      first = 0;
+      second = 0;
+    } else if (buttonText == '+' ||
+        buttonText == '-' ||
+        buttonText == 'x' ||
+        buttonText == '/') {
+      first = int.parse(text);
+      result = '';
+    } else if (buttonText == "=") {
+      second = int.parse(text);
+
+      if (text == "+") {
+        result = (first + second).toString();
+      }
+      if (text == "-") {
+        result = (first - second).toString();
+      }
+      if (text == "x") {
+        result = (first * second).toString();
+      }
+      if (text == "/") {
+        result = (first ~/ second).toString();
+      }
+      // if (text == "ebob") {
+      //   result = (first ~/ second).toString();
+      // }
+      // if (text == "ekok") {
+      //   result = (first ~/ second).toString();
+      // }
+      // if (text == "mod") {
+      //   result = (first ~/ second).toString();
+      // }
+      // if (text == "pow") {
+      //   result = (first, second).toString();
+      // }
+    } else {
+      result = int.parse(text + buttonText).toString();
+    }
+
+    setState(() {
+      text = result;
+    });
   }
 }
