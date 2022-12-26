@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
@@ -6,9 +7,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(primarySwatch: Colors.green),
-      home: const HomeApp(),
+    return const MaterialApp(
+      //theme: ThemeData(primarySwatch: Colors.green),
+      home: HomeApp(),
       debugShowCheckedModeBanner: false,
     );
   }
@@ -25,25 +26,35 @@ class _HomeAppState extends State<HomeApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Calculator App',
-          style: TextStyle(fontSize: 25),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(70.0),
+        child: AppBar(
+          centerTitle: true,
+          backgroundColor: Colors.green,
+          title: const Text(
+            'Calculator',
+            style: TextStyle(
+              fontSize: 35,
+              color: Colors.white,
+            ),
+          ),
         ),
       ),
       body: Container(
+        margin: const EdgeInsets.only(bottom: 10.0),
         child: Column(
           children: [
             Expanded(
               child: Column(
-                children: [
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
                   Container(
                     padding: const EdgeInsets.all(10),
                     alignment: Alignment.bottomRight,
                     child: Text(
                       text,
                       style: const TextStyle(
-                        fontSize: 40,
+                        fontSize: 80,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -52,22 +63,18 @@ class _HomeAppState extends State<HomeApp> {
               ),
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                customTextButton('ebob'),
-                customTextButton('ekok'),
-                customTextButton('mod'),
-                customTextButton('pow'),
-              ],
-            ),
-            Row(
-              children: [
-                customTextButton('7'),
+                customTextButton(
+                  '7',
+                ),
                 customTextButton('8'),
                 customTextButton('9'),
                 customTextButton('+'),
               ],
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 customTextButton('4'),
                 customTextButton('5'),
@@ -76,6 +83,7 @@ class _HomeAppState extends State<HomeApp> {
               ],
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 customTextButton('1'),
                 customTextButton('2'),
@@ -84,6 +92,7 @@ class _HomeAppState extends State<HomeApp> {
               ],
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 customTextButton('C'),
                 customTextButton('0'),
@@ -101,11 +110,11 @@ class _HomeAppState extends State<HomeApp> {
     return SizedBox(
       width: 100,
       height: 100,
-      child: TextButton(
+      child: OutlinedButton(
         onPressed: () => buttonClick(value),
         child: Text(
           value,
-          style: const TextStyle(fontSize: 30.0),
+          style: const TextStyle(fontSize: 45.0, color: Colors.green),
         ),
       ),
     );
@@ -143,18 +152,6 @@ class _HomeAppState extends State<HomeApp> {
       if (text == "/") {
         result = (first ~/ second).toString();
       }
-      // if (text == "ebob") {
-      //   result = (first ~/ second).toString();
-      // }
-      // if (text == "ekok") {
-      //   result = (first ~/ second).toString();
-      // }
-      // if (text == "mod") {
-      //   result = (first ~/ second).toString();
-      // }
-      // if (text == "pow") {
-      //   result = (first, second).toString();
-      // }
     } else {
       result = int.parse(text + buttonText).toString();
     }
