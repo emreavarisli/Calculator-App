@@ -26,21 +26,19 @@ class _HomeAppState extends State<HomeApp> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(60.0),
+        preferredSize: const Size.fromHeight(50.0),
         child: AppBar(
-          centerTitle: true,
           backgroundColor: Colors.green,
-          // title: const Text(
-          //   'Calculator',
-          //   style: TextStyle(
-          //     fontSize: 35,
-          //     color: Colors.white,
-          //   ),
-          // ),
+          title: const Text(
+            'Calculator App', 
+            style: TextStyle(
+              fontSize: 25,
+              color: Colors.white,
+            ),
+          ),
         ),
       ),
       body: Container(
-        margin: const EdgeInsets.only(bottom: 10.0),
         child: Column(
           children: [
             Expanded(
@@ -64,9 +62,7 @@ class _HomeAppState extends State<HomeApp> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                customTextButton(
-                  '7',
-                ),
+                customTextButton('7'),
                 customTextButton('8'),
                 customTextButton('9'),
                 customTextButton('+'),
@@ -127,6 +123,7 @@ class _HomeAppState extends State<HomeApp> {
   late int first;
   late int second;
   late String result;
+  String operation = '';
   String text = '';
 
   void buttonClick(String buttonText) {
@@ -141,20 +138,21 @@ class _HomeAppState extends State<HomeApp> {
         buttonText == '/') {
       first = int.parse(text);
       result = '';
+      operation = buttonText;
     } else if (buttonText == "=") {
       second = int.parse(text);
 
-      if (text == "+") {
+      if (operation == "+") {
         result = (first + second).toString();
       }
-      if (text == "-") {
+      if (operation == "-") {
         result = (first - second).toString();
       }
-      if (text == "x") {
+      if (operation == "x") {
         result = (first * second).toString();
       }
-      if (text == "/") {
-        result = (first ~/ second).toString();
+      if (operation == "/") {
+        result = (first / second).toString();
       }
     } else {
       result = int.parse(text + buttonText).toString();
