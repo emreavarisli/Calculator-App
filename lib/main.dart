@@ -8,7 +8,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      //theme: ThemeData(primarySwatch: Colors.green),
       home: HomeApp(),
       debugShowCheckedModeBanner: false,
     );
@@ -27,17 +26,17 @@ class _HomeAppState extends State<HomeApp> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(70.0),
+        preferredSize: const Size.fromHeight(60.0),
         child: AppBar(
           centerTitle: true,
           backgroundColor: Colors.green,
-          title: const Text(
-            'Calculator',
-            style: TextStyle(
-              fontSize: 35,
-              color: Colors.white,
-            ),
-          ),
+          // title: const Text(
+          //   'Calculator',
+          //   style: TextStyle(
+          //     fontSize: 35,
+          //     color: Colors.white,
+          //   ),
+          // ),
         ),
       ),
       body: Container(
@@ -111,6 +110,11 @@ class _HomeAppState extends State<HomeApp> {
       width: 100,
       height: 100,
       child: OutlinedButton(
+        style: OutlinedButton.styleFrom(
+          foregroundColor: Colors.green,
+          backgroundColor: Colors.white,
+          shadowColor: Colors.green,
+        ),
         onPressed: () => buttonClick(value),
         child: Text(
           value,
